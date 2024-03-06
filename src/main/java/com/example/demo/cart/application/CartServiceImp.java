@@ -8,10 +8,12 @@ import com.example.demo.member.infrastructor.MemberRepository;
 import com.example.demo.product.domain.Product;
 import com.example.demo.product.infrastructor.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CartServiceImp implements CartService{
 
     private final CartRepository cartRepository;
@@ -22,14 +24,16 @@ public class CartServiceImp implements CartService{
     @Override
     public boolean createCart(CartDto cartDto) {
 
-        Member member = memberRepository.findById(cartDto.getMember().getId()).orElse(null);
-        Product product = productRepository.findById(cartDto.getProduct().getId()).orElse(null);
+        Member member = memberRepository.findById(cartDto.getMember_id()).orElse(null);
+
+        Product product = productRepository.findByname(cartDto.getProduct_name()).orElse(null);
+        log.info("product={}", product);
 
         if(member == null || product == null) return false;
 
         cartRepository.save(Cart.builder()
-                .product(cartDto.getProduct())
-                .member(cartDto.getMember())
+                .product(product)
+                .member(member)
                 .quantity(cartDto.getQuantity())
                 .build());
         return true;

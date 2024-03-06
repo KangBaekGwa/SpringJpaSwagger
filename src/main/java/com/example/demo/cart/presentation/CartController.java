@@ -39,9 +39,9 @@ public class CartController {
                             .build());
         }
 
-        String product_name = cartDto.getProduct().getName();
-        String user_name = cartDto.getMember().getName();
-        Long user_id = cartDto.getMember().getId();
+        String product_name = cartDto.getProduct_name();
+        String user_name = cartDto.getMember_name();
+        Long user_id = cartDto.getMember_id();
         Integer quantity = cartDto.getQuantity();
 
         return ResponseEntity.ok().body(
