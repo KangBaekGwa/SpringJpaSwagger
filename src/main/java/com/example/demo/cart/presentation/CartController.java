@@ -27,7 +27,6 @@ public class CartController {
     @PostMapping
     public ResponseEntity<ResponseDto<CartOutDto>> createCart(@RequestBody CartDto cartDto){
         boolean cart_boolean = cartService.createCart(cartDto);
-        log.info("cart_boolean={}", cart_boolean);
 
         if(!cart_boolean){
             return ResponseEntity.badRequest().body(
@@ -35,21 +34,21 @@ public class CartController {
                             <CartOutDto>builder()
                             .Message("실패하였습니다")
                             .httpStatus(HttpStatus.BAD_REQUEST)
-                            //.ResultData(new CartOutDto())
                             .build());
         }
-
-        String product_name = cartDto.getProduct_name();
-        String user_name = cartDto.getMember_name();
-        Long user_id = cartDto.getMember_id();
-        Integer quantity = cartDto.getQuantity();
 
         return ResponseEntity.ok().body(
                 ResponseDto.
                         <CartOutDto>builder()
                         .httpStatus(HttpStatus.OK)
                         .Message("장바구니 아이템 담기 성공")
-                        .ResultData(new CartOutDto(product_name, user_name, user_id, quantity))
+                        .ResultData(CartOutDto
+                                .builder()
+                                .product_name(cartDto.getProduct_name())
+                                .user_id(cartDto.getMember_id())
+                                .user_name(cartDto.getMember_name())
+                                .quantity(cartDto.getQuantity())
+                                .build())
                         .build());
     }
 

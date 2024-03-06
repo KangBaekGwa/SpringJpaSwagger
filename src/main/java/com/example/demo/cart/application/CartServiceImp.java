@@ -25,9 +25,7 @@ public class CartServiceImp implements CartService{
     public boolean createCart(CartDto cartDto) {
 
         Member member = memberRepository.findById(cartDto.getMember_id()).orElse(null);
-
         Product product = productRepository.findByname(cartDto.getProduct_name()).orElse(null);
-        log.info("product={}", product);
 
         if(member == null || product == null) return false;
 
