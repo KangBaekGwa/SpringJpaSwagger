@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/product")
-@Tag(name = "User API", description = "USER_API")
+@Tag(name = "Product API", description = "PRODUCT_API")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
     private final ProductService productService;
 
-    @Tag(name = "User API")
+    @Tag(name = "Product API")
     @Operation(summary = "product 생성", description = "Product 신규 생성")
     @PostMapping("/create")
     public void createProduct(@RequestBody ProductDto productDto){

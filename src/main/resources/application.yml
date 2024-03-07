@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssgdb
+    username: root
+    password: "1234"
+
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: false
+    properties:
+      hibernate.format_sql: false
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+JWT:
+  secret-key: ssg
+  access-token-expiration: 300000
+  refresh-token-expiration: 8640000
